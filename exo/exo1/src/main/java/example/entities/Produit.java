@@ -1,22 +1,37 @@
 package example.entities;
 
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-
 public class Produit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-
     private String marque;
-    private String ref;
-    private String date;
+
+    private String reference;
+
+    @Temporal(TemporalType.DATE)
+    private Date dateAchat;
 
     private double prix;
+
     private int stock;
+
+    public Produit() {
+    }
+
+    public Produit(String marque, String reference, Date dateAchat, double prix, int stock) {
+        this.marque = marque;
+        this.reference = reference;
+        this.dateAchat = dateAchat;
+        this.prix = prix;
+        this.stock = stock;
+    }
 
     public int getId() {
         return id;
@@ -34,20 +49,20 @@ public class Produit {
         this.marque = marque;
     }
 
-    public String getRef() {
-        return ref;
+    public String getReference() {
+        return reference;
     }
 
-    public void setRef(String ref) {
-        this.ref = ref;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
-    public String getDate() {
-        return date;
+    public Date getDateAchat() {
+        return dateAchat;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateAchat(Date dateAchat) {
+        this.dateAchat = dateAchat;
     }
 
     public double getPrix() {
@@ -66,14 +81,13 @@ public class Produit {
         this.stock = stock;
     }
 
-
     @Override
     public String toString() {
         return "Produit{" +
                 "id=" + id +
                 ", marque='" + marque + '\'' +
-                ", ref='" + ref + '\'' +
-                ", date='" + date + '\'' +
+                ", reference='" + reference + '\'' +
+                ", dateAchat=" + dateAchat +
                 ", prix=" + prix +
                 ", stock=" + stock +
                 '}';
