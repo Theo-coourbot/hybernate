@@ -28,6 +28,11 @@ public class Main {
             System.out.println("4. recherche par marque");
             System.out.println("5. supprimer les marques");
             System.out.println("6. voir la valeur du stock");
+            System.out.println("7. ajout de produit");
+            System.out.println("8. supprimer un produit ");
+            System.out.println("9. voir tout lrs produits ");
+            System.out.println("10. modif d'un produit");
+            System.out.println("0.quiter");
             choix= sc.nextInt();
             sc.nextLine();
 
@@ -50,6 +55,18 @@ public class Main {
                 case (6) :
                     valStockMarque();
                     break;
+                case (7) :
+                    ajoutProduit();
+                    break;
+                case (8) :
+                    deleteProduit();
+                    break;
+                case (9) :
+                    voirProduits();
+                    break;
+                case (10) :
+                    modifProduit();
+                    break;
                 case (0) :
                     System.out.println("bye");
                     break;
@@ -62,10 +79,6 @@ public class Main {
 
         // Creation des produits
 
-//        ps.create(new Produit("HP","EER678",new Date("2016/02/09"),2000,10));
-//        ps.create(new Produit("SONY","AQWZSX",new Date("2016/09/23"),6000,5));
-//        ps.create(new Produit("DELL","AZERTY",new Date("2016/02/12"),6000,1));
-//        ps.create(new Produit("SONY","qsdERT",new Date("2016/02/02"),6000,100));
 
         // Informations produit id = 2
 //
@@ -103,9 +116,68 @@ public class Main {
 
     }
 
+    public static void modifProduit() throws ParseException {
+        System.out.println("id du produit a modif ");
+
+        int id =sc.nextInt();
+        sc.nextLine();
+        Produit p = ps.findById(id);
+        System.out.println("marque du produit ?");
+        String marque = sc.nextLine();
+        System.out.println("ref du produit ?");
+        String ref = sc.nextLine();
+        System.out.println("date de l'ajout du produit 31/12/2999 ?");
+        String dateAjoutStr = sc.nextLine();
+        Date dateAjout =new SimpleDateFormat("dd/MM/yyyy").parse(dateAjoutStr);
+        System.out.println("prix du produit ?");
+        double prix = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("stock dispo du produit ?");
+        int stock = sc.nextInt();
+        sc.nextLine();
+        p.setMarque(marque);
+            p.setReference(ref);
+            p.setDateAchat(dateAjout);
+            p.setPrix(prix);
+            p.setStock(stock);
+        ps.update(p);
+    }
+    public static void voirProduits(){
+
+
+        List<Produit> produits = ps.findAll();
+        for (Produit pr: produits) {
+            System.out.println(pr.getMarque() + " " + pr.getReference() + " " + pr.getPrix());
+        }
+
+    }
+    public  static void deleteProduit(){
+        System.out.println("id du produit a supp ");
+        int id =sc.nextInt();
+        ps.delete(ps.findById(id));
+    }
+    public static void ajoutProduit() throws ParseException {
+        System.out.println("marque du produit ?");
+        String marque = sc.nextLine();
+        System.out.println("ref du produit ?");
+        String ref = sc.nextLine();
+        System.out.println("date de l'ajout du produit 31/12/2999 ?");
+        String dateAjoutStr = sc.nextLine();
+        Date dateAjout =new SimpleDateFormat("dd/MM/yyyy").parse(dateAjoutStr);
+        System.out.println("prix du produit ?");
+        double prix = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("stock dispo du produit ?");
+        int stock = sc.nextInt();
+        sc.nextLine();
+                ps.create(new Produit(marque,ref,dateAjout,prix,stock));
+
+    }
+
     public static void afichageParDate() throws ParseException {
         System.out.println("merci de saisir la premiere date dd/MM/yyyy");
         String date1str = sc.nextLine();
+
         Date date1 =new SimpleDateFormat("dd/MM/yyyy").parse(date1str);
         System.out.println("merci de saisir la deuxieme date dd/MM/yyyy");
         String date2str = sc.nextLine();

@@ -34,7 +34,7 @@ public class ProduitService extends BaseService implements Repository<Produit> {
 
     @Override
     public boolean delete(Produit o) {
-        session = sessionFactory.openSession();
+
         session.beginTransaction();
         session.delete(o);
         session.getTransaction().commit();
@@ -54,9 +54,9 @@ public class ProduitService extends BaseService implements Repository<Produit> {
     @Override
     public Produit findById(int id) {
         Produit produit = null;
-        session = sessionFactory.openSession();
+
         produit = (Produit) session.get(Produit.class, id);
-        session.close();
+
         return produit;
     }
     public List<Produit> findBrand(String marque) {
